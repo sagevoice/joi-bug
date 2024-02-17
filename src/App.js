@@ -1,7 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
+import Joi from 'joi';
 
 function App() {
+  const schema = Joi.object().keys({
+    name: Joi.string().alphanum().min(3).max(30).required(),
+    birthyear: Joi.number().integer().min(1970).max(2013),
+  });
+  const dataToValidate = {
+    name: 'chris',
+    birthyear: 1971
+  }
+  const result = Joi.validate(dataToValidate, schema);
+
+  console.log(`result ${JSON.stringify(result)}`)
+
   return (
     <div className="App">
       <header className="App-header">
